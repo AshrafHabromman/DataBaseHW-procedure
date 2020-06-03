@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="covid" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a1f690a3-5977-4467-85f8-6b0bcd5b7210">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ashrafConn"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="542"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="444"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="ageFrom" class="java.lang.Integer"/>
+	<parameter name="ageTo" class="java.lang.Integer"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT count( "HOTEL_GUEST"."GUEST_SSN"),
+	"HOTEL_GUEST"."HAVE_COVID19"
+FROM "HOTEL_GUEST"
+WHERE 
+	 "HOTEL_GUEST"."AGE" BETWEEN  $P{ageFrom}  AND  $P{ageTo} 
+GROUP BY "HOTEL_GUEST"."HAVE_COVID19"]]>
+	</queryString>
+	<field name="COUNT(&quot;HOTEL_GUEST&quot;.&quot;GUEST_SSN&quot;)" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label">
+			<![CDATA[COUNT("HOTEL_GUEST"."GUEST_SSN")]]>
+		</property>
+	</field>
+	<field name="HAVE_COVID19" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="HAVE_COVID19"/>
+	</field>
+	<group name="Group1">
+		<groupExpression><![CDATA[$F{HAVE_COVID19}]]></groupExpression>
+		<groupHeader>
+			<band height="221">
+				<textField>
+					<reportElement style="SubTitle" x="140" y="15" width="110" height="23" forecolor="#000000" uuid="58dcc1c6-1d3b-42b1-ab28-0ec976da8319"/>
+					<textElement>
+						<font size="16" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{HAVE_COVID19}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="15" width="140" height="22" uuid="2a1cfa17-f57a-49f1-bb62-6a9f6bb9efac"/>
+					<textElement>
+						<font size="16"/>
+					</textElement>
+					<text><![CDATA[Have covid_19:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="60" width="50" height="20" uuid="af3fc373-fb5e-4d6e-9e96-8da223f07fff"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<text><![CDATA[Count :]]></text>
+				</staticText>
+				<textField>
+					<reportElement style="Detail" x="50" y="60" width="430" height="20" uuid="9ad3b2a2-99a3-4d3c-ab61-267485c65ffc">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a0a692d9-3665-47ff-8f32-047772431c2d"/>
+					</reportElement>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{COUNT("HOTEL_GUEST"."GUEST_SSN")}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="250" y="15" width="305" height="23" uuid="807c6df5-d489-40c4-b5ec-c1b7f410541f"/>
+					<text><![CDATA[Zero means yes and One means no]]></text>
+				</staticText>
+				<line>
+					<reportElement x="0" y="100" width="486" height="1" uuid="f0fa0101-edb2-4108-96b8-8bb046926856"/>
+				</line>
+				<staticText>
+					<reportElement x="170" y="80" width="100" height="20" uuid="2b9e2871-d1f0-4dc6-afa7-6b91433f479a"/>
+					<box>
+						<pen lineColor="#540605"/>
+					</box>
+					<textElement markup="styled">
+						<font isBold="true" isItalic="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[*See chart below ]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="108" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="0" y="0" width="320" height="33" uuid="6f9c1004-6140-4588-9c4f-d75824835765"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Hotel Data about covid 19 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="50" width="555" height="34" uuid="ff6e2acf-3902-46f9-a869-55b498b7aa5a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a0a692d9-3665-47ff-8f32-047772431c2d"/>
+				</reportElement>
+				<textElement>
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[Classify people based-on covid_19]]></text>
+			</staticText>
+			<image>
+				<reportElement x="420" y="0" width="100" height="100" uuid="5ee0d542-97cd-4c7e-a414-748642041979"/>
+				<imageExpression><![CDATA["C:/Users/Ashraf Habromman/Documents/NetBeansProjects/HW6JsperReport/src/pictures/icons8-coronavirus-100.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnFooter>
+		<band height="229" splitType="Stretch">
+			<barChart>
+				<chart evaluationTime="Report" hyperlinkType="RemotePage">
+					<reportElement x="0" y="-100" width="230" height="260" uuid="d3cb40a6-0fdb-4de9-941a-6d3a1f2794ef"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<dataset incrementType="Group" incrementGroup="Group1"/>
+					<categorySeries>
+						<seriesExpression><![CDATA["Have Covid_19"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{HAVE_COVID19}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{COUNT("HOTEL_GUEST"."GUEST_SSN")}]]></valueExpression>
+						<labelExpression><![CDATA[$F{HAVE_COVID19}]]></labelExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+		</band>
+	</columnFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
